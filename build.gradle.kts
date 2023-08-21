@@ -1,5 +1,6 @@
 import io.qameta.allure.gradle.AllureExtension
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     repositories {
@@ -22,6 +23,7 @@ version = version
 plugins {
     java
     maven
+    kotlin("jvm")
 }
 
 apply(plugin = "io.qameta.allure")
@@ -71,4 +73,13 @@ dependencies {
     compile("org.junit.jupiter:junit-jupiter-params:5.7.0")
 
     testCompile("io.qameta.allure:allure-junit-platform:2.16.0")
+    implementation(kotlin("stdlib-jdk8"))
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "11"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "11"
 }
